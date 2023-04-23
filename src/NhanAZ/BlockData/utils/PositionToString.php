@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace NhanAZ\BlockData;
+namespace NhanAZ\BlockData\utils;
 
 use pocketmine\world\Position;
 
