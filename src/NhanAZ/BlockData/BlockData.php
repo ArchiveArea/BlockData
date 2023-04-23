@@ -6,7 +6,9 @@ namespace NhanAZ\BlockData;
 
 use pocketmine\block\Block;
 use pocketmine\event\block\BlockBreakEvent;
+use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\Listener;
+use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\plugin\PluginBase;
 use pocketmine\Server;
 use pocketmine\utils\Config;
@@ -28,9 +30,40 @@ class BlockData implements Listener {
 	 * @param BlockBreakEvent $event
 	 * @priority MONITOR
 	 */
-	public function onBlockUpdate(BlockBreakEvent $event): void {
+	public function onBlockBreak(BlockBreakEvent $event): void {
 		if (!$event->isCancelled()) {
-			self::removeData($event->getBlock());
+			$block = $event->getBlock();
+			$blockData = self::getData($block);
+			if ($blockData !== null) {
+				$drops = $event->getDrops();
+				foreach ($drops as $drop) {
+					$compoundTag = new CompoundTag();
+					$compoundTag->setString("blockdata", $blockData);
+					$drop->setCustomBlockData($compoundTag);
+				}
+				self::removeData($block);
+			}
+		}
+	}
+
+	/**
+	 * @param BlockPlaceEvent $event
+	 * @priority MONITOR
+	 */
+	public function onBlockPlace(BlockPlaceEvent $event): void {
+		if (!$event->isCancelled()) {
+			$item = $event->getItem();
+			$block = $event->getBlock();
+			$customBlockData = $item->getCustomBlockData();
+			if ($customBlockData !== null) {
+				try {
+					$blockData = $customBlockData->getString("blockdata");
+					if ($blockData !== null) {
+						self::setData($block, $blockData);
+					}
+				} catch (\Exception) {
+				}
+			}
 		}
 	}
 
