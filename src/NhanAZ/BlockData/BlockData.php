@@ -14,12 +14,18 @@ class BlockData {
 
 	private string $blockDataFolderPath;
 
-	public function __construct(
-		private PluginBase $plugin
-	) {
-		$this->blockDataFolderPath = $plugin->getDataFolder() . "BlockData/";
-		self::ensureDirectoryExists(self::getBlockDataPath());
-		Server::getInstance()->getPluginManager()->registerEvents(new BlockDataEventHandler($this), $plugin);
+	/**
+	 * @method __construct(PluginBase $plugin, bool $handleEvent = true)
+	 *
+	 * @param PluginBase $plugin The plugin instance.
+	 * @param bool $handleEvent Whether or not to handle events. The block's data will be saved when the player breaks/places the block.
+	 */
+	public function __construct(protected PluginBase $plugin, protected bool $handleEvent = true) {
+		$this->blockDataFolderPath = $plugin->getDataFolder() . 'BlockData/';
+		self::ensureDirectoryExists($this->blockDataFolderPath);
+		if ($handleEvent) {
+			Server::getInstance()->getPluginManager()->registerEvents(new BlockDataEventHandler($this), $plugin);
+		}
 	}
 
 	/**
