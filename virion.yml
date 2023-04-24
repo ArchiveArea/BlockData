@@ -1,6 +1,6 @@
 ---
 name: BlockData
-version: 0.0.1
+version: 0.0.2
 antigen: NhanAZ\BlockData
 api: [4.0.0]
 authors: [NhanAZ]
