@@ -6,7 +6,7 @@ Integrate the virion itself into your plugin or you could also use it as a compo
 `composer require nhanaz/blockdata`
 
 ## API documentation
-There's no documentation yet, but you can check out the [demo plugin](https://github.com/NhanAZ/BlockData_Example_Plugin) which shows how to use its API in a plugin.
+There's no documentation yet, but you can check out the [demo plugin](https://github.com/NhanAZ/BlockData_Example_Plugin) or [Dependency graph](https://github.com/NhanAZ/BlockData/network/dependents) which shows how to use its API in a plugin.
 
 ## Including in other plugins
 This library supports being included as a [virion](https://github.com/poggit/support/blob/master/virion.md).
