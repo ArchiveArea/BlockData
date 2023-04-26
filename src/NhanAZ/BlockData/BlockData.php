@@ -20,7 +20,7 @@ class BlockData {
 	 * @param PluginBase $plugin The plugin instance.
 	 * @param bool $handleEvent Whether or not to handle events. The block's data will be saved when the player breaks/places the block.
 	 */
-	public function __construct(protected PluginBase $plugin, protected bool $handleEvent = true) {
+	public function __construct(protected PluginBase $plugin, protected bool $handleEvent = false) {
 		$this->blockDataFolderPath = $plugin->getDataFolder() . 'BlockData/';
 		self::ensureDirectoryExists($this->blockDataFolderPath);
 		if ($handleEvent) {
