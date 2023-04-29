@@ -46,12 +46,11 @@ class BlockDataEventHandler implements Listener {
 			$block = $event->getBlock();
 			$customBlockData = $item->getCustomBlockData();
 			if ($customBlockData !== null) {
-				try {
+				if ($item->getNamedTag()->getTag("blockdata") !== null) {
 					$blockData = $customBlockData->getString("blockdata");
 					if ($blockData !== null) {
 						$this->blockData->setData($block, $blockData);
 					}
-				} catch (\Exception) {
 				}
 			}
 		}
