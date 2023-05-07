@@ -33,11 +33,11 @@ class BlockData {
 	 *
 	 * If the directory does not exist, it will be created.
 	 *
-	 * @param string $path The path to the directory to ensure.
+	 * @param string $directory The path to the directory to ensure.
 	 */
-	private function ensureDirectoryExists(string $path): void {
-		if (!is_dir($path)) {
-			@mkdir($path);
+	private function ensureDirectoryExists(string $directory): void {
+		if (!file_exists($directory)) {
+			@mkdir($directory, 0777, true);
 		}
 	}
 
