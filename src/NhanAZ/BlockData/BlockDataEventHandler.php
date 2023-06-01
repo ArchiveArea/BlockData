@@ -43,15 +43,18 @@ class BlockDataEventHandler implements Listener {
 	public function onBlockPlace(BlockPlaceEvent $event): void {
 		if (!$event->isCancelled()) {
 			$item = $event->getItem();
-			$block = $event->getBlock();
-			$customBlockData = $item->getCustomBlockData();
-			if ($customBlockData !== null) {
-				if ($item->getNamedTag()->getTag("blockdata") !== null) {
-					$blockData = $customBlockData->getString("blockdata");
-					if ($blockData !== null) {
-						$this->blockData->setData($block, $blockData);
+			$blocks = $event->getTransaction()->getBlocks();
+			foreach ($blocks as [$x, $y, $z, $block]) {
+				$customBlockData = $item->getCustomBlockData();
+				if ($customBlockData !== null) {
+					if ($item->getNamedTag()->getTag("blockdata") !== null) {
+						$blockData = $customBlockData->getString("blockdata");
+						if ($blockData !== null) {
+							$this->blockData->setData($block, $blockData);
+						}
 					}
 				}
+				break;
 			}
 		}
 	}
