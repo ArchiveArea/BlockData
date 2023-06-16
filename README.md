@@ -1,3 +1,7 @@
+> **Note**
+> Use this library if you are a professional developer
+> https://github.com/Cosmoverse/BlockData
+
 # BlockData
 A virion for PocketMine-MP that lets plugins store arbitrary block data
 
