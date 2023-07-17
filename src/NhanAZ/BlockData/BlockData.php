@@ -109,6 +109,11 @@ class BlockData {
 			return null;
 		}
 		$config = new Config($positionPath, Config::YAML);
-		return strval($config->get($positionString));
+
+		$return = $config->get($positionString);
+		if (!is_string($return)) {
+			throw new \TypeError();
+		}
+		return $return;
 	}
 }
